@@ -63,4 +63,4 @@ cmake -S "${ROOT_DIR}" -B "${ROOT_DIR}/build-android-arm64" \
   -DCMAKE_BUILD_TYPE=Release \
   "${CMAKE_EXTRA_ARGS[@]}"
 
-cmake --build "${ROOT_DIR}/build-android-arm64" -j"$(sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || echo 4)"
+cmake --build "${ROOT_DIR}/build-android-arm64" -j"$(nproc)"
