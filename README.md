@@ -57,14 +57,38 @@ cmake ..
 cmake --build . -j$(nproc)
 ```
 
-
 ### Android
 
-An automated build script is provided to generate the APK. Ensure your Android SDK and NDK are properly configured.
+An automated build script is provided to generate the APK. The following
+commands install the Android SDK command-line tools and required SDK
+components, then build the Android ARM64 library and APK.
 
 ```bash
-export ANDROID_SDK_ROOT=/path/to/android/sdk
-export ANDROID_NDK_HOME=/path/to/android/ndk
+# Android SDK
+mkdir -p ~/Android/Sdk/cmdline-tools
+cd ~/Android/Sdk
+
+curl -L https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip -o cmdline-tools.zip
+unzip -o cmdline-tools.zip
+
+mkdir -p cmdline-tools/latest
+mv cmdline-tools/bin cmdline-tools/lib cmdline-tools/latest/ 2>/dev/null || true
+mv cmdline-tools/NOTICE.txt cmdline-tools/source.properties cmdline-tools/latest/ 2>/dev/null || true
+rm -f cmdline-tools.zip
+
+# Android environment
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH"
+
+# Required Android SDK components
+sdkmanager --licenses
+sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+
+# Android NDK
+export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk/<version>"
+
+# Build APK
 ./scripts/build_android_apk.sh
 ```
 
