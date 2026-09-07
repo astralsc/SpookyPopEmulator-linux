@@ -48,7 +48,8 @@ target.write_text(source)
 PY
 
 cp "${ROOT_DIR}/build-android-arm64/libg.so" "${APKROOT_DIR}/lib/arm64-v8a/libg.so"
-strip "${APKROOT_DIR}/lib/arm64-v8a/libg.so"
+"${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip" \
+  "${APKROOT_DIR}/lib/arm64-v8a/libg.so"
 
 JAVA_SRC_DIR="${ROOT_DIR}/app/src/main/java"
 if find "${JAVA_SRC_DIR}" -name '*.java' -print -quit | grep -q .; then
