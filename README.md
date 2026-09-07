@@ -81,14 +81,11 @@ export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export ANDROID_HOME="$ANDROID_SDK_ROOT"
 export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH"
 
-# Required Android SDK components
-sdkmanager --licenses
-sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+sdkmanager "ndk;27.2.12479018"
 
-# Android NDK
-export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk/<version>"
+export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk/27.2.12479018"
 
-# Build APK
+cd ~/SpookyPopEmulator-linux
 ./scripts/build_android_apk.sh
 ```
 
