@@ -28,11 +28,32 @@ Before building or running the emulator, you must provide the original game file
 ### Linux
 
 ```bash
+# Clone Dynarmic
+rm -rf extern/dynarmic
+git clone https://github.com/lioncash/dynarmic.git extern/dynarmic
+
+# Download SQLite 3.50.4
+rm -rf extern/sqlite3
+mkdir -p extern/sqlite3
+cd extern/sqlite3
+
+curl -L https://www.sqlite.org/2025/sqlite-amalgamation-3500400.zip -o sqlite.zip
+unzip sqlite.zip
+
+mv sqlite-amalgamation-3500400/sqlite3.c .
+mv sqlite-amalgamation-3500400/sqlite3.h .
+mv sqlite-amalgamation-3500400/sqlite3ext.h .
+
+rm -rf sqlite-amalgamation-3500400 sqlite.zip
+
+# Build
+cd ../..
 mkdir build
 cd build
 cmake ..
 cmake --build . -j$(nproc)
 ```
+
 
 ### Android
 
