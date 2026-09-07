@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-/opt/homebrew/share/android-commandlinetools}}"
+SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
 BUILD_TOOLS_DIR="${ANDROID_BUILD_TOOLS_DIR:-}"
 
 if [[ -z "${BUILD_TOOLS_DIR}" ]]; then
@@ -48,7 +48,7 @@ target.write_text(source)
 PY
 
 cp "${ROOT_DIR}/build-android-arm64/libg.so" "${APKROOT_DIR}/lib/arm64-v8a/libg.so"
-/opt/homebrew/opt/binutils/bin/strip "${APKROOT_DIR}/lib/arm64-v8a/libg.so"
+strip "${APKROOT_DIR}/lib/arm64-v8a/libg.so"
 
 JAVA_SRC_DIR="${ROOT_DIR}/app/src/main/java"
 if find "${JAVA_SRC_DIR}" -name '*.java' -print -quit | grep -q .; then
