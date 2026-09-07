@@ -46,8 +46,11 @@ mv sqlite-amalgamation-3500400/sqlite3ext.h .
 
 rm -rf sqlite-amalgamation-3500400 sqlite.zip
 
-# Build
 cd ../..
+rm -rf extern/stb
+git clone https://github.com/nothings/stb.git extern/stb
+
+# Build
 mkdir build
 cd build
 cmake ..
